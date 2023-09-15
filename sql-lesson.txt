@@ -1,0 +1,105 @@
+https://www.w3schools.com/mysql/mysql_ref_functions.asp
+
+
+
+--SELECT first_name, last_name
+--FROM customers
+
+--SELECT DISTINCT country
+--FROM customers
+
+--SELECT DISTINCT item
+--FROM orders
+
+-- SELECT * FROM customers;
+
+--SELECT *
+--FROM customers 
+--ORDER BY last_name, first_name;
+
+--SELECT DISTINCT item, amount
+--FROM orders
+--ORDER BY amount DESC
+--LIMIT 3;
+
+--SELECT *
+--FROM customers
+--WHERE age > 24 AND country = 'USA'
+--ORDER BY age;
+
+--SELECT *
+--FROM customers
+--WHERE NOT (country = 'USA' OR age > 24)
+--ORDER BY age;
+
+--SELECT *
+--FROM orders
+--WHERE NOT (amount > 300)
+
+--SELECT *
+--FROM orders 
+--WHERE item != 'Keyboard' AND amount >= 300;
+
+--SELECT *
+--FROM orders
+--WHERE item in ('Keyboard', 'Mouse');
+
+--SELECT * 
+--FROM orders
+--WHERE item NOT in ('Keyboard', 'Mouse')
+
+--SELECT DISTINCT country, length(country)
+--FROM customers
+
+
+--SELECT COUNT(*)
+--FROM customers
+
+--SELECT COUNT (DISTINCT country)
+--FROM customers
+
+--SELECT COUNT(*)
+--FROM customers
+--WHERE country = 'UK'
+
+--SELECT COUNT(*)
+--FROM shippings
+--WHERE lower(status) = 'pending'
+
+--SELECT AVG(age)
+--FROM customers
+
+--SELECT AVG(amount)
+--FROM orders
+
+--SELECT SUM(amount)
+--FROM orders
+--WHERE item in ('Mouse', 'Keyboard')
+
+--SELECT MIN(age), MAX(age)
+--FROM customers
+
+--SELECT MIN(age), MAX(age), (MAX(age) - MIN(age)) as Diff
+--FROM customers
+
+--SELECT country, COUNT(*)
+--FROM customers
+--GROUP BY country
+
+--SELECT country, AVG(age)
+--FROM customers
+--GROUP BY country
+
+SELECT item, SUM(amount)
+FROM orders
+GROUP BY item
+
+SELECT 
+FROM
+
+
+
+
+
+
+
