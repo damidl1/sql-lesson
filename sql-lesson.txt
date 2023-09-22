@@ -299,5 +299,20 @@ FROM customers as c LEFT JOIN orders as o ON c.customer_id = o.customer_id
 
 
 
+CREATE TABLE addresses (
+	address_id int primary key,
+-- se metto "primary key", vuol dire che il valore a cui l'ho dato è univoco, e deve essere unico. In automatico diventa not null, e mi impedirà di creare un duplicato di un qualcosa con quel valore
+  	customer_id int,
+  -- esiste anche unique, che dice che non è possibile che il cliente abbia più di un indirizzo di spedizione
+  -- posso indicarlo così: unique(customer_id, city, zip_code, street, number), vale a dire che non ci possono essere due persone diverse con lo stesso indirizzo
+	city varchar(256) not null,
+	zip_code varchar(16) not null,
+  	street varchar(256) not null,
+  	number int,
+  
+  	unique(customer_id, city, zip_code, street, number),
+  	foreign key(customer_id) references customers(customer_id)
+);
 
+--questo è per creare una tabella. "not null" indica che il valore deve essere inserito
 
