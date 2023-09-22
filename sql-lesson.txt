@@ -102,10 +102,199 @@ LIMIT 1
 
 
 
------------- LEZIONE 22/09
 
 
 
+
+
+
+
+------------ LEZIONE 22/09 ------------
+
+
+-- DML: Data Manipulation Language
+-- DQL: Data Query Language
+
+--CRUD: C --> create  R --> Read  U --> update  D --> delete
+
+
+-- UPDATE per aggiornare uno o più dati
+
+-- UPDATE customers    
+-- SET age = 35, 
+-- 	first_name = 'Sam'
+-- WHERE customer_id = 1;
+-- per andare ad impostare l'età ad un cliente andandola a selezionare dall'età di un altro cliente
+-- UPDATE customers      
+-- SET age = ( 				
+ --  SELECT age
+--   FROM customers
+--   WHERE customer_id = 4
+-- )
+-- WHERE customer_id = 1;
+
+
+--UPDATE orders
+--SET amount =  (
+  --sottoquery / subquery
+ --SELECT amount
+ --FROM orders
+ --WHERE item = 'Mouse'
+--) 
+--WHERE item = 'Keyboard';
+
+
+--PAGINAZIONE
+--SELECT * 
+--FROM orders
+--LIMIT 2
+--OFFSET 2  -- OFFSET serve per dire quante righe saltare 
+
+--SELECT *
+--FROM orders
+--WHERE customer_id != 4
+
+
+
+-- DELETE
+
+--DELETE FROM customers
+--WHERE customer_id = 1;
+
+
+--DELETE FROM orders
+--WHERE item = 'Keyboard';
+
+-- cascade / cascading:  una cancellazione ad esempio di un cliente cancella automaticamente anche il suo ordine
+
+
+
+-- CREATE
+
+
+--aggiungiamo un nuovo cliente alla tabella
+
+--INSERT INTO customers(customer_id, age, country, first_name, last_name)
+--VALUES(6, 40, 'IT', 'Mario', 'Rossi');
+
+
+--INSERT INTO orders(order_id, item, amount, customer_id)
+--SELECT order_id + 5, item, amount, 6
+--FROM orders
+--WHERE customer_id = 4
+
+
+--se ci sono dei valori vuoti che non inseriamo il valore sarà Null
+--INSERT INTO customers(customer_id, first_name, last_name)   
+--VALUES(7, 'Pippo', 'Lintonaco')
+
+
+-- Logica binaria: true, false
+-- Logica ternaria: true, false, null(unknown)
+--NULL in SQL vuol dire UNKNOWN, sconosciuto
+--SELECT *
+--FROM customers
+--WHERE age is null;   --is serve per fare la comparazione con null    
+
+
+--UPDATE customers 
+--SET country = null
+--WHERE customer_id = 4;
+
+
+--UPDATE customers
+--SET country = 'IT'
+--WHERE customer_id = 4;
+
+--SELECT country
+--FROM customers
+--WHERE customer_id in (
+   -- SELECT customer_id
+	--FROM orders
+	--WHERE item = 'Keyboard'
+--);
+
+
+--SELECT *
+--FROM customers
+--WHERE customer_id in  --in -> .includes()
+--(
+--  SELECT customer
+--  FROM shippings
+--  WHERE status = 'Pending'
+--)  -- come se fosse una lista/array di valori dell'includes di javascript
+
+
+--SELECT avg(age)
+--FROM customers
+--WHERE customer_id in 
+--(
+--  SELECT customer_id
+--  FROM orders
+--  WHERE amount > 350
+--)
+
+
+
+-- Per tutti gli ordini voglio vedere:
+--1) oggetto acquistato
+--2) soldi spesi per quell'oggetto
+--3) nome e cognome del cliente
+
+
+---  JOIN  ---
+
+
+--esempio ma metodo che è meglio non utilizzare
+--as per dare alias alle proprietà
+
+--SELECT o.item, o.amount, c.first_name, c.last_name   
+--FROM orders as o, customers as c
+--WHERE o.customer_id = c.customer_id;
+
+
+
+
+-- Per tutti gli ordini voglio vedere:
+--1) id spedizione
+--2) stato spedizione
+--3) nazionalità del cliente a cui è destinata
+
+
+--SELECT s.shipping_id, s.status, c.country
+--FROM shippings as s, customers as c
+--WHERE s.customer = c.customer_id;
+
+--SELECT s.shipping_id, s.status, c.country  --uno dei metodi corretti di scrivere un'operazione di JOIN
+--FROM shippings as s
+--JOIN customers as c
+--ON s.customer = c.customer_id
+--JOIN orders o
+--ON o.customer_id = c.customer_id;
+
+
+
+--DDL (Data Definition Language)
+
+-- aggiungere una colonna nuova alla tabella
+
+--ALTER TABLE customers
+--ADD COLUMN telephone varchar(50);
+
+--ALTER TABLE customers
+--ADD COLUMN is_married boolean default false;
+
+
+-- eliminare una colonna alla tabella
+
+--ALTER TABLE customers
+--DROP COLUMN is_married;
+
+
+
+SELECT c.customer_id, c.first_name, c.last_name, o.item
+FROM customers as c LEFT JOIN orders as o ON c.customer_id = o.customer_id  
+--LEFT JOIN = fammi vedere la tabella a sinistra e al massimo restituisci null
 
 
 
